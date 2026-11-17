@@ -24,6 +24,12 @@
       "url": "https://isc.sans.edu/rssfeed_full.xml"
     },
     {
+      "name": "Calif research blog",
+      "kind": "feed",
+      "url": "https://blog.calif.io/feed",
+      "min_interval_minutes": 55
+    },
+    {
       "name": "InfoSec Exchange public local timeline",
       "kind": "mastodon_public",
       "base_url": "https://infosec.exchange",
@@ -50,6 +56,14 @@
       "kind": "x_recent",
       "query": "(from:abuse_ch OR from:TheDFIRReport OR from:MsftSecIntel OR from:CISACyber) -is:retweet",
       "max_pages": 2,
+      "enabled": true
+    },
+    {
+      "name": "X Calif research",
+      "kind": "x_recent",
+      "query": "(from:calif_io OR from:thaidn OR from:lcamtuf OR from:lcfr_hax) -is:retweet",
+      "max_pages": 2,
+      "min_interval_minutes": 55,
       "enabled": true
     },
     {

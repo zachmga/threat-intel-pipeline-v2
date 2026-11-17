@@ -1,6 +1,6 @@
 # Personal threat intelligence pipeline (Go)
 
-A local, read-only collector for public security reporting. It polls IFIN, SANS ISC, the public local timeline at InfoSec Exchange, Ransomware.live's leak-site claim feed, optional X watchlists, and explicitly configured public onion pages or feeds. Findings go into SQLite with deduplication and source-health state. The CLI writes a review inbox and source material for a daily analyst brief. **A source claim is a lead, not proof of an incident.**
+A local, read-only collector for public security reporting. It polls IFIN, SANS ISC, Calif's research blog, the public local timeline at InfoSec Exchange, Ransomware.live's leak-site claim feed, optional X watchlists, and explicitly configured public onion pages or feeds. Findings go into SQLite with deduplication and source-health state. The CLI writes a review inbox and source material for a daily analyst brief. **A source claim is a lead, not proof of an incident.**
 
 ## Get started on macOS
 
@@ -43,9 +43,10 @@ The default configuration intentionally leaves two direct onion collectors disab
 | --- | --- | --- |
 | IFIN | Public Discourse category JSON | Each scheduled run; recent topic pages and replies |
 | SANS ISC | Public RSS | Each scheduled run |
+| Calif research blog | Public RSS | About every 55 minutes |
 | InfoSec Exchange | Public Mastodon local timeline API | At most one page of 40 posts about every 55 minutes, then security-term filtering |
 | Ransomware.live | Public RSS of leak-site claims | About every 115 minutes |
-| X watchlists | Official recent-search API | Each scheduled run once configured; bounded pagination |
+| X watchlists | Official recent-search API | Each scheduled run once configured; bounded pagination; Calif group at most about every 55 minutes |
 | Public onion RSS and HTML | Tor SOCKS5 proxy | Disabled until configured; at least 175 minutes between successful polls |
 
 The InfoSec Exchange source is deliberately **sampled**: one public API request per hourly run is unlikely to cover every local post. `status` records `partial=true` and the digest says `sampled` when that page fills. This saves requests and makes the coverage limit visible. The collector does not need your InfoSec Exchange login for the public local timeline. If the instance later closes public access, use its documented app-token process rather than sharing a password in chat; this implementation currently does not use an InfoSec Exchange token.
@@ -62,7 +63,7 @@ The researcher's [candidate underground source list](darkweb-sources.md) records
 
 ### X and local exports
 
-The two X watchlists cover underground reporting (`@vxunderground`, `@DarkWebInformer`) and grounded research/advisories (`@abuse_ch`, `@TheDFIRReport`, `@MsftSecIntel`, `@CISACyber`). To enable official recent search, put only the bearer token in `.secrets/x_bearer_token` or set `X_BEARER_TOKEN` in the process environment. Do not put credentials in `config.json` or Git. The query uses a bounded page count; a partial scan does not advance the cursor. [X recent-search documentation](https://docs.x.com/x-api/posts/search/introduction).
+The three X watchlists cover underground reporting (`@vxunderground`, `@DarkWebInformer`), grounded research/advisories (`@abuse_ch`, `@TheDFIRReport`, `@MsftSecIntel`, `@CISACyber`), and Calif research (`@calif_io`, `@thaidn`, `@lcamtuf`, `@lcfr_hax`). Calif's [company page](https://calif.io/company), [research post](https://calif.io/research/password-fiction), and [PHP2Shell writeup](https://calif.io/php2shell/) identify those handles. The blog feed supplies Calif coverage even when X is unavailable. To enable official recent search, put only the bearer token in `.secrets/x_bearer_token` or set `X_BEARER_TOKEN` in the process environment. Do not put credentials in `config.json` or Git. The query uses a bounded page count; a partial scan does not advance the cursor. [X recent-search documentation](https://docs.x.com/x-api/posts/search/introduction).
 
 For Signal groups you participate in, import an authorized JSON Lines export:
 
