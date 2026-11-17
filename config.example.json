@@ -1,0 +1,85 @@
+{
+  "database": "data/intel.sqlite3",
+  "output_dir": "output",
+  "sources": [
+    {
+      "name": "IFIN Threat Intel",
+      "kind": "discourse",
+      "base_url": "https://ifin.network",
+      "category_slug": "threat-intel",
+      "category_id": 5,
+      "max_pages": 3
+    },
+    {
+      "name": "IFIN Vulnerabilities",
+      "kind": "discourse",
+      "base_url": "https://ifin.network",
+      "category_slug": "vulnerabilities",
+      "category_id": 15,
+      "max_pages": 2
+    },
+    {
+      "name": "SANS ISC Handler's Diary",
+      "kind": "feed",
+      "url": "https://isc.sans.edu/rssfeed_full.xml"
+    },
+    {
+      "name": "InfoSec Exchange public local timeline",
+      "kind": "mastodon_public",
+      "base_url": "https://infosec.exchange",
+      "max_pages": 1,
+      "sampled": true,
+      "min_interval_minutes": 55,
+      "keywords": ["cve-", "malware", "ransomware", "threat intel", "exploit", "phishing", "vulnerability", "intrusion", "breach"]
+    },
+    {
+      "name": "Ransomware.live leak-site claims",
+      "kind": "feed",
+      "url": "https://api.ransomware.live/feed",
+      "min_interval_minutes": 115
+    },
+    {
+      "name": "X underground reporting",
+      "kind": "x_recent",
+      "query": "(from:vxunderground OR from:DarkWebInformer) -is:retweet",
+      "max_pages": 2,
+      "enabled": true
+    },
+    {
+      "name": "X grounded research",
+      "kind": "x_recent",
+      "query": "(from:abuse_ch OR from:TheDFIRReport OR from:MsftSecIntel OR from:CISACyber) -is:retweet",
+      "max_pages": 2,
+      "enabled": true
+    },
+    {
+      "name": "Public onion announcement feed (configure URL)",
+      "kind": "onion_feed",
+      "url": "http://REPLACE-WITH-V3-ONION-ADDRESS.onion/rss",
+      "tor_proxy": "socks5h://127.0.0.1:9050",
+      "min_interval_minutes": 175,
+      "enabled": false
+    },
+    {
+      "name": "Public onion announcement page (configure URL)",
+      "kind": "onion_html",
+      "url": "http://REPLACE-WITH-V3-ONION-ADDRESS.onion/",
+      "tor_proxy": "socks5h://127.0.0.1:9050",
+      "entry_tag": "article",
+      "entry_class": "",
+      "min_interval_minutes": 175,
+      "enabled": false
+    }
+  ],
+  "priority_terms": {
+    "actively exploited": 5,
+    "in the wild": 5,
+    "zero day": 4,
+    "0day": 4,
+    "supply chain": 3,
+    "ransomware": 3,
+    "infostealer": 3,
+    "credential theft": 3,
+    "cve-": 1
+  }
+}

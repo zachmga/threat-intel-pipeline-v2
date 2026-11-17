@@ -1,0 +1,23 @@
+# Local configuration and credentials
+/config*.json
+!/config.example.json
+/.secrets/
+/.env
+/.env.*
+
+# Collected data, generated reports, and scratch files
+/data/
+/output/
+/tmp/
+/bin/
+
+# Python and editor files
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.venv/
+venv/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
